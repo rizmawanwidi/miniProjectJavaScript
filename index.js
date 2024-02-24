@@ -19,7 +19,7 @@ numbers.forEach ((number) => {
             console.log(e.target.innerText)
             haveDot = true
         } else if (e.target.innerText === "." && haveDot) {
-            console.log(e.target.innerText)
+            console.log('sudah ada dot',e.target.innerText)
             return;
         }
         
