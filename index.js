@@ -43,6 +43,7 @@ operations.forEach((operation) => {
         lastOperation = operationName
     })
 })
+
 function clearVar(name = "") {
     dis1Num += dis2Num + " " + name + " ";
     displayHistory.innerText = dis1Num;
@@ -50,6 +51,7 @@ function clearVar(name = "") {
     dis2Num = ""
     tempResult.innerText = result;
 }
+
 function mathOperation () {
     if (lastOperation === "X") {
         result = parseFloat(result) * parseFloat(dis2Num)
@@ -62,4 +64,81 @@ function mathOperation () {
     } else if (lastOperation === "%") {
         result = parseFloat(result) % parseFloat(dis2Num)
     }
+}
+
+equal.addEventListener("click", () => {
+    if (!dis1Num || !dis2Num) return;
+    haveDot = false;
+    mathOperation()
+    clearVar();
+    display.innerText = result;
+    tempResult.innerText = "";
+    dis2Num = result;
+    dis1Num = "";
+});
+
+clearAll.addEventListener("click", () => {
+    dis1Num = "";
+    dis2Num = "";
+    haveDot = false;
+    displayHistory.innerText = ""
+    display.innerText = ""
+    tempResult.innerText = ""
+    result = ""
+    lastOperation = ""
+})
+
+clearLast.addEventListener("click", () => {
+    display.innerText = ""
+    dis2Num = ""
+})
+
+window.addEventListener("keydown", (e) => {
+    console.log(e.key)
+    if (
+        e.key === "0" ||
+        e.key === "1" ||
+        e.key === "2" ||
+        e.key === "3" ||
+        e.key === "4" ||
+        e.key === "5" ||
+        e.key === "6" ||
+        e.key === "7" ||
+        e.key === "8" ||
+        e.key === "9"
+    ) {
+        clickButton(e.key);
+    } else if (e.key === "+" || e.key === "-" || e.key === "/" || e.key === "%") {
+        clickOperation(e.key);
+    } else if (e.key === "*") {
+        clickOperation("X")
+    } else if (e.key === "Enter" || e.key === "=") {
+        clickEqual();
+    } else if (e.key === "Backspace") {
+        clickClear()
+    }
+})
+
+function clickButton(key) {
+    numbers.forEach((button) => {
+        if (button.innerText === key ) {
+            button.click()
+        }
+    })
+}
+
+function clickOperation(key) {
+    operations.forEach((operation) => {
+        if (operation.innerText === key) {
+            operation.click()
+        }
+    })
+}
+
+function clickEqual() {
+    equal.click()
+}
+
+function clickClear() {
+    clearAll.click()
 }
